@@ -2,11 +2,13 @@ import os
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
 from config import Config
     
 
+cors = CORS()
 db = SQLAlchemy()
 migrate = Migrate()
 
@@ -17,6 +19,7 @@ def create_app(config_class=Config):
     app.config.from_object(Config)
 
     db.init_app(app)
+    cors.init_app(app)
     migrate.init_app(app, db)
 
     from app.main import bp as main_bp

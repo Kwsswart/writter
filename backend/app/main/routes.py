@@ -9,10 +9,11 @@ from flask import request, jsonify
 @bp.route("/api/login", methods=["POST"])
 def login():
     try:
-        req = request.json
-        if req["email"] and req["pwd"]:
+        email = request.json["email"]
+        pwd = request.json["pwd"]
+        if email and pwd:
             users = getUsers()
-            return jsonify(len(list(filter(lambda x: x["email"] == req["email"] and x["pwd"] == req["pwd"], users))) == 1)
+            return jsonify(len(list(filter(lambda x: x["email"] == email and x["pwd"] == pwd, users))) == 1)
         else:
             
             return jsonify({"error":"Invalid Form"})
@@ -24,7 +25,9 @@ def login():
 def register():
     try:
         req = request.json
-        email = req["email"]
+        pwd = request.json['pwd']
+        username = request.json['username']
+        email = request.json["email"]
         email = email.lower()
         users = getUsers()
         if len(list(filter(lambda x: x["email"] == email, users))) == 1:
@@ -32,7 +35,7 @@ def register():
         if not re.match(r"[\w\._]{5,}@\w{3,}.\w{2,4}", email): # Email validation
             return jsonify({"error": "Invalid form"})
         # secure details validate username
-        addUser(req["username"], email, req["pwd"])
+        addUser(username, email, pwd)
         return jsonify({"success": True})
     except:
         return jsonify({"error": "Invalid form"})
