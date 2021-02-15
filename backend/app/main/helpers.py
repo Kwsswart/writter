@@ -1,32 +1,54 @@
 from app import db
-from app.models import Users
-
-def getUsers():
-    users = Users.query.all()
-    return [{"id": i.id, "username": i.username, "email": i.email, "pwd": i.pwd} for i in users]
+from app.models import Weet, Users
+from app.auth.helpers import getUser
 
 
-def addUser(username, email, pwd):
+def getWeets():
+    """
+    Function intended to query database for all weets
+    """
 
-    if username and pwd and email:
-        try:
-            user = Users(username, email, pwd)
-            db.session.add(user)
-            db.session.commit()
-            return True
-        except Exception as e:
-            print(e)
-            return False
-    else:
+    weets = Weet.query.all()
+    return [{"id": i.id, "title": i.title, "content": i.content, "user": getUser(i.user_id)} for i in weets]
+
+
+def getUserWeets(uid):
+    """
+    Function intended to query database for all user weets
+    """
+
+    weets = Weet.query.all()
+    return [
+        {"id": weet.id, "userid":  weet.user_id, "title": weet.title, "content": weet.content} for weet in filter(lambda i: i.user_id == uid, weets)
+    ]
+
+
+def delWeet(wid):
+    """
+    Function intended  to delete single weets
+    """
+
+    try:
+        weet = Weet.query.get(wid)
+        db.session.delete(weet)
+        db.session.commit()
+        return True
+    except Exception as e:
+        print(e)
         return False
 
 
-def removeUser(user_id):
-    
-    if user_id:
+def addWeet(title, content, uid):
+    """
+    Function intended to add weet to database.
+        **args = variables
+    """
+
+    if title and content and uid:
         try:
-            user = Users.query.get(user_id)
-            db.session.delete(user)
+            user = list(filter(lambda i: i.id == uid, Users.query.all()))[0]
+            weet = Weet(title=title, content=content, user=user)
+            db.session.add(weet)
             db.session.commit()
             return True
         except Exception as e:

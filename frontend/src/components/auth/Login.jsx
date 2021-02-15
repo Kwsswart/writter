@@ -1,13 +1,11 @@
 import React, {Component} from "react";
 import axios from "axios";
-import Alert from "./Alert";
+import Alert from '../error/Alert';
 
-
-class Register extends Component {
+class Login extends Component {
 
     initialState = {
         email: '',
-        username: '',
         pwd: '',
         err: ''
     }
@@ -18,34 +16,33 @@ class Register extends Component {
     }, () =>{console.log(this.state)});
 
     emailChange = this.handleChange('email');
-    usernameChange = this.handleChange('username');
     pwdChange = this.handleChange('pwd');
 
-    register = (e) => {
+    login = (e) => {
         e.preventDefault();
         axios
-            .post("http://localhost:5000/api/register", {
-                // Change this to grab from state by changing state on click in field
+            .post("http://localhost:5000/api/login", {
+                // Change this to grab from state by on click storing in state
                 email: this.state.email,
-                username: this.state.username,
                 pwd: this.state.pwd
             })
             .then((res) => {
+                console.log(res)
                 if (res.data.error){
                     this.setState({err: res.data.error})
                 } else {
-                    this.setState(this.initialState, this.setState({ register: true }));
+                    this.setState(this.initialState, this.setState({ login: true }));
+                    
                 }
             });
     };
 
     render() {
-        const {email, username, pwd} = this.state;
-
+        const {email, pwd} = this.state;
         return (
-            <div className="w3-card-4" style={{ margin: "2rem"}}>
+            <div className="w3-card-4" style={{ margin: "2rem" }}>
                 <div className="w3-container w3-blue w3-center w3-xlarge">
-                   Register 
+                    Login
                 </div>
                 <div className="w3-container">
                     {/* Display error message */}
@@ -54,25 +51,15 @@ class Register extends Component {
                             message={`Check your form and try again! (${this.state.err})`}
                         />
                     )}
-                    <form onSubmit={this.register}>
+                    <form onSubmit={this.login}>
                         <p>
                             <label htmlFor="email">Email</label>
                             <input
                                 type="email"
                                 className="w3-input w3-border"
-                                id="email"
                                 onChange={this.emailChange}
+                                id="email"
                                 value={email}
-                            />
-                        </p>
-                        <p>
-                            <label htmlFor="username">Username</label>
-                            <input
-                                type="text"
-                                className="w3-input w3-border"
-                                id="username"
-                                onChange={this.usernameChange}
-                                value={username}
                             />
                         </p>
                         <p>
@@ -80,16 +67,16 @@ class Register extends Component {
                             <input
                                 type="password"
                                 className="w3-input w3-border"
-                                id="pwd"
                                 onChange={this.pwdChange}
+                                id="pwd"
                                 value={pwd}
                             />
                         </p>
                         <p>
                             <button type="submit" className="w3-button w3-blue">
-                                Register
+                                Login
                             </button>
-                            {this.state.register && <p>You're registered!</p>}
+                            {this.state.login && <p>You're logged in!</p>}
                         </p>
                     </form>
                 </div>
@@ -98,4 +85,4 @@ class Register extends Component {
     }
 }
 
-export default Register;
+export default Login;
