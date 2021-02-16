@@ -1,5 +1,9 @@
 import React from "react";
 
+/**
+ * Navigation Component
+ */
+
 function Navbar() {
     return (
         <div className="w3-bar w3-black">

@@ -1,4 +1,14 @@
-from app import db
+from app import db, jwt
+
+
+@jwt.token_in_blacklist_loader
+def check_if_blacklisted_token(decrypted):
+    """
+    Decorator designed to check for blacklisted tokens
+    """
+    jti = decrypted['jti']
+    return InvalidToken.is_invalid(jti)
+
 
 class Users(db.Model):
     """
@@ -39,3 +49,23 @@ class Weet(db.Model):
 
     def __repr__(self):
         return "<Weet: User - {}; Title - {}; Content - {};>".format(self.user, self.title, self.content)
+
+
+class InvalidToken(db.Model):
+    """
+    Blacklisted token storage
+    """
+
+    __tablename__ = "invalid_tokens"
+    id = db.Column(db.Integer, primary_key=True)
+    jti = db.Column(db.String)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+    
+    @classmethod
+    def is_invalid(cls, jti):
+        q = cls.query.filter_by(jti=jti).first()
+        return bool(q)
+

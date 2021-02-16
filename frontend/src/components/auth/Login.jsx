@@ -1,9 +1,12 @@
 import React, {Component} from "react";
-import axios from "axios";
 import Alert from '../error/Alert';
+import {check, login} from "../../login";
+
+/**
+ * Login form component.
+ */
 
 class Login extends Component {
-
     initialState = {
         email: '',
         pwd: '',
@@ -11,30 +14,29 @@ class Login extends Component {
     }
     state = this.initialState;
 
+    componentDidMount() {
+        check().then(r=> {if (r){
+            window.location ="/";
+        }});
+    }
     handleChange = (field) => (e) => this.setState({
         [field]:e.target.value
     }, () =>{console.log(this.state)});
-
     emailChange = this.handleChange('email');
     pwdChange = this.handleChange('pwd');
 
     login = (e) => {
         e.preventDefault();
-        axios
-            .post("http://localhost:5000/api/login", {
-                // Change this to grab from state by on click storing in state
-                email: this.state.email,
-                pwd: this.state.pwd
-            })
-            .then((res) => {
-                console.log(res)
-                if (res.data.error){
-                    this.setState({err: res.data.error})
-                } else {
-                    this.setState(this.initialState, this.setState({ login: true }));
-                    
-                }
-            });
+        login(this.state.email, this.state.pwd)
+        .then((res) => {
+            console.log(res)
+            if (res === true) {
+                this.setState(this.initialState, this.setState({ login: true }));
+                window.location = "/" // look into using redirect component to avoid manipulating DOM
+            } else {
+                this.setState({err: res});
+            }
+        });
     };
 
     render() {

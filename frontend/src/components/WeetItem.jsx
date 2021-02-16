@@ -1,5 +1,9 @@
 import React from "react";
 
+/**
+ * Component designed to display each weet
+ */
+
 function WeetItem(props) {
     return (
         <div 

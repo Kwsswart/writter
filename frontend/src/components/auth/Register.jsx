@@ -24,7 +24,7 @@ class Register extends Component {
     register = (e) => {
         e.preventDefault();
         axios
-            .post("http://localhost:5000/api/register", {
+            .post("/api/register", {
                 // Change this to grab from state by changing state on click in field
                 email: this.state.email,
                 username: this.state.username,
@@ -35,6 +35,7 @@ class Register extends Component {
                     this.setState({err: res.data.error})
                 } else {
                     this.setState(this.initialState, this.setState({ register: true }));
+                    window.location = "/login"
                 }
             });
     };

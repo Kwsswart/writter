@@ -9,13 +9,14 @@ import {
     Switch
 } from "react-router-dom";
 import MainPage from "./MainPage";
+import {check} from "../login";
 
 function App() {
     return (
         <Fragment>
             <Navbar />
             <Router>
-                <Route path="/" exact component={Home} />
+                <Route path="/" exact component={check() ? MainPage: Home} />
                 <Route path="/main" exact component={MainPage} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/register" exact component={Register} />

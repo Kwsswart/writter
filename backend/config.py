@@ -13,6 +13,7 @@ class Config(object):
         "sqlite:///" + os.path.join(basedir, "writter.db")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    JWT_SECRET_KEY = "MyAwesomeSecretIsNeverGoingToBeDiscovered"
 
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
     MAIL_PORT = int(os.environ.get('MAIL_PORT') or 25)
