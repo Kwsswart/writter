@@ -13,7 +13,9 @@ class Config(object):
         "sqlite:///" + os.path.join(basedir, "writter.db")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    JWT_SECRET_KEY = "MyAwesomeSecretIsNeverGoingToBeDiscovered"
+    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')
+    JWT_BLACKLIST_ENABLED = True
+    JWT_BLACKLIST_TOKEN_CHECKS = ["access", "refresh"]
 
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
     MAIL_PORT = int(os.environ.get('MAIL_PORT') or 25)

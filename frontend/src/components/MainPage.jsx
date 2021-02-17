@@ -1,5 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import WeetItem from './WeetItem';
+import AddWeet from './AddWeet';
 import Axios from "axios";
 
 /**
@@ -12,7 +13,7 @@ class MainPage extends Component {
     componentDidMount() {
         Axios.get("/api/weets").then(res => {
             console.log(res)
-            this.setState({weets: res.data})
+            this.setState({weets: res.data.reverse()})
         });
     }
 
@@ -23,8 +24,14 @@ class MainPage extends Component {
                 <div
                     className="w3-container w3-jumbo"
                     style={{ margin: "3rem", paddingLeft: "1rem"}}>
-                    Weets
+                    <h1>Weets</h1>
+                    <button 
+                        className="w3-button w3-blue w3-large"
+                        onClick={() => {
+                            document.getElementById("addWeet").style.display = "block";
+                        }}>Add Weet</button>
                 </div>
+                <AddWeet />
                 <div className="w3-container">
 
                     {weets.length === 0 ? <p className="w3-xlarge w3-opacity" style={{marginLeft:"2rem"}}>No weets! Create one!</p> : weets.map((item, index) =>{

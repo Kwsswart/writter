@@ -1,13 +1,4 @@
-from app import db, jwt
-
-
-@jwt.token_in_blacklist_loader
-def check_if_blacklisted_token(decrypted):
-    """
-    Decorator designed to check for blacklisted tokens
-    """
-    jti = decrypted['jti']
-    return InvalidToken.is_invalid(jti)
+from app import db
 
 
 class Users(db.Model):

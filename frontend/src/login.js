@@ -19,7 +19,7 @@ async function login(email, pwd) {
     }
 }
 
-function check() {
+async function check() {
     /**
      * Checks local storage for token 
     */

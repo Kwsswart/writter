@@ -18,7 +18,7 @@ def add_weet():
     try:
         title = request.json["title"]
         content = request.json["content"]
-        uid = request.json["uid"]
+        uid = get_jwt_identity()
         addWeet(title, content, uid)
         return jsonify({"success":"true"})
     except Exception as e:
