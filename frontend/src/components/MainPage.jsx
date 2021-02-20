@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
-import WeetItem from './WeetItem';
-import AddWeet from './AddWeet';
+import WeetItem from './weets/WeetItem';
+import AddWeet from './weets/AddWeet';
 import Axios from "axios";
 
 /**

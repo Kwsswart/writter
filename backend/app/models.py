@@ -56,7 +56,8 @@ class InvalidToken(db.Model):
         db.session.commit()
     
     @classmethod
-    def is_invalid(cls, jti):
+    def is_invalid(cls, jti) -> str:
+        """ Determine whether the jti key is on the blocklist return bool"""
         q = cls.query.filter_by(jti=jti).first()
         return bool(q)
 

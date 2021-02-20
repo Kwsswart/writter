@@ -1,50 +1,52 @@
 import React, {Fragment} from "react";
+import logo from "../assets/images/logo.png";
 
 
 function Home() {
     return (
         <Fragment>
-            <div 
-                className="w3-container w3-center w3-blue"
-                style={{ passing: "2rem" }}>
-                <h1 className="w3-jumbo">Writter</h1>
-                <button
-                    className="w3-button w3-pink"
-                    style={{ marginTaight: "1rem" }}>
-                    Login
-                </button>
-                <button className="w3-button w3-pink">
-                Register
-                </button>
-            </div>
+            <div>
+                <div 
+                    className="w3-container w3-center w3-white"
+                    style={{ 
+                        height: "100%", 
+                        width:"40%", 
+                        float: "left" }}>
+                    <img src={logo} style={{ paddingTop: "10%" ,height: "100%"}} alt="Logo" />
+                </div>
 
-            <div 
-                className="w3-container w3-blue"
-                style={{ padding: "2rem", marginTop: "2rem" }}>
-                <h2>Lorem ipsum dolor sit amet</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Integer consectetur libero nibh, non sodales urna malesuada
-                    nec. Sed tortor eros, blandit eget fringilla at, gravida a
-                    nibh. Etiam dui nulla, aliquam vitae purus a, auctor
-                    malesuada arcu. Vestibulum venenatis orci nisl, sed
-                    elementum leo tincidunt eget. Nullam convallis nisi in.
-                </p>
-            </div>
-
-            <div 
-                className="w3-container w3-blue"
-                style={{ padding: "2rem", marginTop: "2rem" }}>
-                <h2>Lorem ipsum dolor sit amet</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Integer consectetur libero nibh, non sodales urna malesuada
-                    nec. Sed tortor eros, blandit eget fringilla at, gravida a
-                    nibh. Etiam dui nulla, aliquam vitae purus a, auctor
-                    malesuada arcu. Vestibulum venenatis orci nisl, sed
-                    elementum leo tincidunt eget. Nullam convallis nisi in.
-                </p>
-            </div>
+                <div 
+                    className="w3-container w3-center w3-blue"
+                    style={{ 
+                        height: "100%", 
+                        width: "60%", 
+                        float: "left", 
+                        paddingTop: "5%",
+                        paddingBottom: "50%"}}>
+                    <h1 className="w3-xxlarge" style={{fontFamily: "Helvetica Neue"}}>Welcome to, Writter!</h1>
+                    <p className="w3-large" style={{color:"black", fontFamily: "Helvetica Neue"}}>Join Writter today!</p>
+                    <div className="w3-container" style={{ paddingTop: "4%"}}>
+                        <div style={{ paddingBottom: "2%"}}>
+                            <button
+                                className="w3-btn w3-blue w3-border w3-border-white w3-round-xxlarge"
+                                style={{ 
+                                    fontFamily: "Helvetica Neue", 
+                                    width: "200px"}}>
+                                Login
+                            </button>
+                        </div>
+                        <div>
+                            <button 
+                                className="w3-btn w3-white w3-border w3-border-blue w3-round-xxlarge"
+                                style={{ 
+                                    fontFamily: "Helvetica Neue", 
+                                    width: "200px"}}>
+                            Sign Up
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
         </Fragment>
     );
 }

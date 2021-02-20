@@ -1,6 +1,7 @@
 import React, {Fragment, useState} from "react";
 import Home from "./Home";
-import Navbar from "./Navbar";
+import Navbar from "./display/Navbar";
+import Footer from "./display/Footer"
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import {
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/register" exact component={Register} />
                 <Route path="/logout" exact component={Logout} />
             </Router>
+            <Footer />
         </Fragment>
     );
 }

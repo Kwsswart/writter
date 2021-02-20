@@ -13,8 +13,6 @@ def check_if_blacklisted_token(data, decrypted):
     """
     Decorator designed to check for blacklisted tokens
     """
-    print(decrypted)
-    print(data)
     jti = decrypted['jti']
     return InvalidToken.is_invalid(jti)
 
@@ -101,3 +99,9 @@ def refresh_logout():
         print(e)
         return jsonify({"error": e})
 
+
+@bp.route("/api/getcurrentuser")
+@jwt_required()
+def current_user():
+    uid = get_jwt_identity()
+    return jsonify(getUser(uid))

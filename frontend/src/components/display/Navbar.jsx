@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {check} from "../login";
+import {check} from "../../login";
 
 /**
  * Navigation Component
