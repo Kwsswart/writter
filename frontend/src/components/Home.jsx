@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, {Fragment, Link } from "react";
 import logo from "../assets/images/logo.png";
 
 
@@ -29,6 +29,10 @@ function Home() {
                         <div style={{ paddingBottom: "2%"}}>
                             <button
                                 className="w3-btn w3-blue w3-border w3-border-white w3-round-xxlarge"
+                                onClick={(e)=>{
+                                    e.preventDefault();
+                                    window.location="/login";
+                                }}
                                 style={{ 
                                     fontFamily: "Helvetica Neue", 
                                     width: "200px"}}>
@@ -38,6 +42,10 @@ function Home() {
                         <div>
                             <button 
                                 className="w3-btn w3-white w3-border w3-border-blue w3-round-xxlarge"
+                                onClick={(e)=>{
+                                    e.preventDefault();
+                                    window.location="/register";
+                                }}
                                 style={{ 
                                     fontFamily: "Helvetica Neue", 
                                     width: "200px"}}>

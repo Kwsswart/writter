@@ -44,7 +44,7 @@ class Register extends Component {
         const {email, username, pwd} = this.state;
 
         return (
-            <div className="w3-card-4" style={{ margin: "2rem"}}>
+            <div className="w3-card-4" style={{ margin: "2rem", marginBottom:"10%"}}>
                 <div className="w3-container w3-blue w3-center w3-xlarge">
                    Register 
                 </div>

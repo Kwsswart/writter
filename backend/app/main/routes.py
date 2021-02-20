@@ -26,11 +26,10 @@ def add_weet():
         return jsonify({"error": "Invalid form"})
 
 
-@bp.route("/api/deleteweet", methods=["DELETE"])
+@bp.route("/api/deleteweet/<wid>", methods=["DELETE"])
 @jwt_required()
-def delete_weet():
+def delete_weet(wid):
     try:
-        wid = request.json["wid"]
         delWeet(wid)
         return jsonify({"success": "true"})
     except:

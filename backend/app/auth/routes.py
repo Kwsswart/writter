@@ -2,7 +2,7 @@ import re
 from app import db, jwt
 from app.auth import bp
 from app.models import Users, Weet, InvalidToken
-from app.auth.helpers import getUsers, addUser, removeUser
+from app.auth.helpers import getUsers, getUser, addUser, removeUser
 from flask import request, jsonify
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, get_jwt, \
     jwt_required

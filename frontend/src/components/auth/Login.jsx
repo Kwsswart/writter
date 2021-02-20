@@ -22,6 +22,7 @@ class Login extends Component {
     handleChange = (field) => (e) => this.setState({
         [field]:e.target.value
     }, () =>{console.log(this.state)});
+    
     emailChange = this.handleChange('email');
     pwdChange = this.handleChange('pwd');
 

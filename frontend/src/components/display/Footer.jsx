@@ -4,7 +4,7 @@ import React from "react";
 function Footer() {
     return (
         <footer 
-            class="w3-container w3-black" 
+            className="w3-container w3-black" 
             style={{
                 position: "fixed", 
                 left: 0, 
