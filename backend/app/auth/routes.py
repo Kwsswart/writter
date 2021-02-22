@@ -25,7 +25,7 @@ def login():
         if email and pwd:
             
             user = list(filter(lambda x: x["email"] == email and x["pwd"] == pwd, getUsers()))
-            if len(user):
+            if len(user) == 1:
                 token = create_access_token(identity=user[0]["id"])
                 refresh_token = create_refresh_token(identity=user[0]["id"])
                 return jsonify({"token": token, "refreshToken": refresh_token})
@@ -62,7 +62,6 @@ def register():
 @bp.route("/api/checkiftokenexpire", methods=["POST"])
 @jwt_required()
 def check_if_token_expire():
-    print(get_jwt_identity())
     return jsonify({"success": True})
 
 
@@ -77,7 +76,7 @@ def refresh():
 @bp.route("/api/logout/access", methods=["POST"])
 @jwt_required()
 def access_logout():
-    jti = get_jwt()
+    jti = get_jwt()["jti"]
     try:
         invalid_token = InvalidToken(jti=jti)
         invalid_token.save()
@@ -105,3 +104,42 @@ def refresh_logout():
 def current_user():
     uid = get_jwt_identity()
     return jsonify(getUser(uid))
+
+
+@bp.route("/api/changepassword", methods=["POST"])
+@jwt_required()
+def change_password():
+    try:
+        user = Users.query.get(get_jwt_identity())
+        if not (request.json["password"] and request.json["npassword"] and request.json["rpassword"]):
+            return jsonify({"error": "Invalid form"})
+        if not request.json["npassword"] == request.json["rpassword"]:
+            return jsonify({"error": "New password and Repeat new password must be the same."})
+        if not user.pwd == request.json["password"]:
+            return jsonify({"error": "Wrong password"})
+        
+        user.pwd = request.json["npassword"]
+        db.session.add(user)
+        db.session.commit()
+        return jsonify({"success": True})
+    except Exception as e:
+        print(e)
+        return jsonify({"error": "Invalid Form"})
+
+
+@bp.route("/api/deleteaccount", methods=["DELETE"])
+@jwt_required()
+def delete_account():
+    try:
+        user = Users.query.get(get_jwt_identity())
+        weets = Weets.query.all()
+        for weet in weets:
+            if weet.user.username == user.username:
+                delWeet(weet.id)
+        removeUser(user.id)
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"error": str(e)})
+
+
+from app.main.helpers import delWeet

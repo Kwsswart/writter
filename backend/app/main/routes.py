@@ -18,6 +18,8 @@ def add_weet():
     try:
         title = request.json["title"]
         content = request.json["content"]
+        if not (title and content):
+            return jsonify({"error": "Invalid form"})
         uid = get_jwt_identity()
         addWeet(title, content, uid)
         return jsonify({"success":"true"})

@@ -17,6 +17,9 @@ function Navbar() {
             </a>
             {login ? 
             <div style={{ float: "right" }}>
+                <a className="w3-bar-item w3-button" href="/settings">
+                    Settings
+                </a>
                 <a className="w3-bar-item w3-button" href="/logout">
                     Logout
                 </a>
