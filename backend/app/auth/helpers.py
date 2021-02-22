@@ -1,5 +1,5 @@
 from app import db
-from app.models import Users
+from app.models import Users, Weet
 
 
 def getUsers():
@@ -54,4 +54,19 @@ def removeUser(user_id):
             print(e)
             return False
     else:
+        return False
+
+
+def delWeet(wid):
+    """
+    Function intended  to delete single weets
+    """
+
+    try:
+        weet = Weet.query.get(wid)
+        db.session.delete(weet)
+        db.session.commit()
+        return True
+    except Exception as e:
+        print(e)
         return False

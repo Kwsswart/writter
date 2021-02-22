@@ -1,8 +1,9 @@
 import re
 from app import db, jwt
 from app.auth import bp
+from app.auth.helpers import getUsers, getUser, addUser, removeUser, delWeet
 from app.models import Users, Weet, InvalidToken
-from app.auth.helpers import getUsers, getUser, addUser, removeUser
+from app.security import encpwd, checkpwd, enc, dec
 from flask import request, jsonify
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt_identity, get_jwt, \
     jwt_required
@@ -23,8 +24,7 @@ def login():
         email = request.json["email"]
         pwd = request.json["pwd"]
         if email and pwd:
-            
-            user = list(filter(lambda x: x["email"] == email and x["pwd"] == pwd, getUsers()))
+            user = list(filter(lambda x: dec(x["email"]) == email and checkpwd(pwd, x["pwd"]), getUsers()))
             if len(user) == 1:
                 token = create_access_token(identity=user[0]["id"])
                 refresh_token = create_refresh_token(identity=user[0]["id"])
@@ -40,20 +40,19 @@ def login():
 @bp.route("/api/register", methods=["POST"])
 def register():
     try:
-        req = request.json
-        pwd = request.json['pwd']
+        pwd = encpwd(request.json['pwd'])
         username = request.json['username']
         email = request.json["email"]
         email = email.lower()
-
+        
         users = getUsers()
-        if len(list(filter(lambda x: x["email"] == email, users))) == 1:
+        if len(list(filter(lambda x: dec(x["email"]) == email, users))) == 1:
             return jsonify({"error": "Invalid Form"})
 
         if not re.match(r"[\w\._]{5,}@\w{3,}.\w{2,4}", email):
             return jsonify({"error": "Invalid form"})
         # secure details validate username
-        addUser(username, email, pwd)
+        addUser(username, enc(email), pwd)
         return jsonify({"success": True})
     except:
         return jsonify({"error": "Invalid form"})
@@ -141,5 +140,3 @@ def delete_account():
     except Exception as e:
         return jsonify({"error": str(e)})
 
-
-from app.main.helpers import delWeet
