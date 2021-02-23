@@ -21,7 +21,7 @@ class Login extends Component {
     }
     handleChange = (field) => (e) => this.setState({
         [field]:e.target.value
-    }, () =>{console.log(this.state)});
+    });
     
     emailChange = this.handleChange('email');
     pwdChange = this.handleChange('pwd');
@@ -30,7 +30,6 @@ class Login extends Component {
         e.preventDefault();
         login(this.state.email, this.state.pwd)
         .then((res) => {
-            console.log(res)
             if (res === true) {
                 this.setState(this.initialState, this.setState({ login: true }));
                 window.location = "/" // look into using redirect component to avoid manipulating DOM

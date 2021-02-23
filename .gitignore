@@ -8,13 +8,15 @@ node_modules
 venv
 .flaskenv
 writter.db 
-
+writter
 
 # testing
 coverage
 
 # production
 build
+writter/*
+
 
 # misc
 .DS_Store

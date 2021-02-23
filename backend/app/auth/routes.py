@@ -46,7 +46,7 @@ def register():
         email = email.lower()
         
         users = getUsers()
-        if len(list(filter(lambda x: dec(x["email"]) == email, users))) == 1:
+        if len(list(filter(lambda x: dec(x["email"]) == email, users))) == 1:         
             return jsonify({"error": "Invalid Form"})
 
         if not re.match(r"[\w\._]{5,}@\w{3,}.\w{2,4}", email):
