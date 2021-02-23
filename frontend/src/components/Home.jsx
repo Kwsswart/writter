@@ -9,20 +9,19 @@ function Home() {
                 <div 
                     className="w3-container w3-center w3-white"
                     style={{ 
-                        height: "100%", 
+                        height: "100vh", 
                         width:"40%", 
                         float: "left" }}>
-                    <img src={logo} style={{ paddingTop: "10%" ,height: "100%"}} alt="Logo" />
+                    <img src={logo} style={{ paddingTop: "5%" ,height: "80%", width:"80%"}} alt="Logo" />
                 </div>
 
                 <div 
                     className="w3-container w3-center w3-blue"
                     style={{ 
-                        height: "100%", 
+                        height: "100vh", 
                         width: "60%", 
                         float: "left", 
-                        paddingTop: "5%",
-                        paddingBottom: "50%"}}>
+                        paddingTop: "5%"}}>
                     <h1 className="w3-xxlarge" style={{fontFamily: "Helvetica Neue"}}>Welcome to, Writter!</h1>
                     <p className="w3-large" style={{color:"black", fontFamily: "Helvetica Neue"}}>Join Writter today!</p>
                     <div className="w3-container" style={{ paddingTop: "4%"}}>
