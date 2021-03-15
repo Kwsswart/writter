@@ -6,7 +6,7 @@ from app.models import Users, Weet
 from flask import request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
-
+'''
 @bp.route("/")
 def react_index():
     return bp.send_static_file("index.html")
@@ -15,7 +15,7 @@ def react_index():
 @bp.route("/<a>")
 def react_route(a):
     return bp.send_static_file("index.html")
-    
+   ''' 
 
 @bp.route("/api/weets")
 def get_weets():

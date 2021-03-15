@@ -11,7 +11,8 @@ function Footer() {
                 bottom: 0, 
                 width: "100%", 
                 height:"15%",
-                textAlign: "center"
+                textAlign: "center",
+                zIndex:3
             }}>
             <h6 style={{fontFamily: "Helvetica Neue"}}>Made by Kieron William Spearing</h6>
             <p style={{

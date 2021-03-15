@@ -4,7 +4,7 @@ from base64 import b64encode
 from hashlib import sha256 
 from cryptography.fernet import Fernet
 
-e= Fernet(os.getenv("KEY"))
+e = Fernet(os.getenv("KEY"))
 
 
 def encpwd(pwd):

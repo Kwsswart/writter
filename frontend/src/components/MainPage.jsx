@@ -2,6 +2,7 @@ import Axios from "axios";
 import React, {Component, Fragment} from 'react';
 import WeetItem from './weets/WeetItem';
 import AddWeet from './weets/AddWeet';
+import {check} from '../login';
 
 
 /**
@@ -16,8 +17,8 @@ class MainPage extends Component {
         }
 
     componentDidMount() {
+        check().then(r => console.log(r))
         Axios.get("/api/weets").then(res => {
-            console.log(res)
             this.setState({weets: res.data.reverse()})
         });
         Axios.get("/api/getcurrentuser", {
@@ -45,7 +46,7 @@ class MainPage extends Component {
                         style={{fontFamily: "Helvetica Neue"}}>Add Weet</button>
                 </div>
                 <AddWeet />
-                <div className="w3-container" style={{marginBottom:"10%"}}>
+                <div className="w3-container" style={{marginBottom:"25%"}}>
 
                     {weets.length === 0 ? <p className="w3-xlarge w3-opacity" style={{marginLeft:"2rem"}}>No weets! Create one!</p> : weets.map((item, index) =>{
                         return (

@@ -14,7 +14,7 @@ async function login(email, pwd) {
         return data.error;
     } else {
         localStorage.setItem("token", data.token);
-        localStorage.setItem("refreshToken", data.refreshToken)
+        localStorage.setItem("refreshToken", data.refreshToken);
         return true;
     }
 }
@@ -34,7 +34,6 @@ async function check() {
         const {data} = await res;
         return data.success
     } catch {
-        console.log("p");
         const refresh_token = localStorage.getItem("refreshToken")
         if (!refresh_token) {
             localStorage.removeItem("token")
@@ -42,7 +41,7 @@ async function check() {
         }
         Axios.post("/api/refreshtoken", {}, {
             headers: {
-                Authorization: "Bearer "+refresh_token
+                Authorization: "Bearer "+ refresh_token
             }
         }).then(res => {
             localStorage.setItem("token", res.data.token)

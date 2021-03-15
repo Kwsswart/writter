@@ -114,10 +114,10 @@ def change_password():
             return jsonify({"error": "Invalid form"})
         if not request.json["npassword"] == request.json["rpassword"]:
             return jsonify({"error": "New password and Repeat new password must be the same."})
-        if not user.pwd == request.json["password"]:
+        if not user.pwd == encpwd(request.json["password"]):
             return jsonify({"error": "Wrong password"})
         
-        user.pwd = request.json["npassword"]
+        user.pwd = encpwd(request.json["npassword"])
         db.session.add(user)
         db.session.commit()
         return jsonify({"success": True})
